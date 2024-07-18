@@ -53,6 +53,7 @@ const VideoDetails = () => {
                             width="100%"
                             height="100%"
                             style={{backgroundColor: '#000000'}}
+                            playing={true}
                         />
                     </div>
                     <div className={'text-white font-bold text-sm md:flex-row mt-4'}>
@@ -81,7 +82,38 @@ const VideoDetails = () => {
                             </div>
 
                         </div>
+                        <div className={'flex text-white mt-4 md:mt-0'}>
+                            <div className={'flex items-center justify-center h-11 px-6 rounded-3xl bg-white/[0.15]'}>
+                                <AiOutlineLink className={'text-xl text-white mr-2'}/>
+                                <span>
+                                   {`${abbreviateNumber(
+                                       video?.stats?.likes, 2
+                                   )}Likes`}
+                               </span>
+                            </div>
+                            <div
+                                className={'flex items-center justify-center h-11 px-6 rounded-3xl bg-white/[0.15] ml-4'}>
+                                <AiOutlineLink className={'text-xl text-white mr-2'}/>
+                                <span>
+                                   {`${abbreviateNumber(
+                                       video?.stats?.views, 2
+                                   )}Views`}
+                               </span>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div className={'flex flex-col py-6 px-4 overflow-y-auto lg:w-[350px] xl:w-[400px]'}>
+                    {
+                        relatedVideo?.contents?.map((item, index) => {
+                            if (item?.type !== "video") return false;
+                            return (
+                                <SuggestionVideoCard
+                                    key={index}
+                                    video={item?.video}
+                                />
+                            );
+                        })}
                 </div>
             </div>
         </div>
